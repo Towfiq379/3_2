@@ -1,0 +1,78 @@
+x=[-2 5 7 3 0 -5];
+stem(x)
+xlabel('n')
+ylabel('x(n)')
+title('Sequence x(n)')
+grid on
+
+.....................................
+
+x=[2 -5 -3 0 -1 -4 2 4];
+n=-2:1:5;
+stem(n,x)
+xlabel('n')
+ylabel('x(n)')
+title('Sequence x(n)')
+grid on
+
+......................................
+
+n=0:1:20;
+a=2
+r=0.8
+y=a*r.^n;
+stem(n,y)
+xlabel('n')
+ylabel('y')
+title('Sequence y')
+grid on
+
+..........................................
+
+n=0:1:20;
+a=2
+r=0.8
+y=a*r.^n;
+subplot(2,1,1)
+stem(n,y,'bs')
+n=0:1:20
+a=2
+r=1.2
+y=a*r.^n;
+subplot(2,1,2)
+stem(n,y.'r*')
+
+..........................................
+
+
+n=0:1:50;
+y=2*sin(0.3*pi*n+pi/3); //2*pi*f*t=0.3*pi*n
+stem(n,y,'bs')
+
+.....................
+
+n=0:1:100;
+y=2*sin(0.3*pi*n+pi/3);
+subplot(2,2,1)
+stem(n,y,'bs')
+y=2*sin(2*pi*(1/20)*n+pi/3);
+subplot(2,2,2)
+stem(n,y,'r*')
+y=2*sin(2*pi*sqrt(2)*n+pi/3);
+subplot(2,2,3)
+stem(n,y,'r')
+y=2*sin(2*pi*sqrt(3)*n+pi/3);
+subplot(2,2,4)
+stem(n,y,'b>')
+
+...............................
+
+n=-5:1:5;
+x=[0 0 0 0 0 1 1 1 1 1 1];
+stem(n,x)
+
+.................................
+
+n=-5:1:5;
+x=[0 0 0 0 0 0 1 2 3 4 5];
+stem(n,x)
