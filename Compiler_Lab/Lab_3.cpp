@@ -242,7 +242,6 @@ void NFA()
         }
         else
         {
-            cout<<">";
             auto pre1=stk.top();
             stk.pop();
             auto pre2=stk.top();
