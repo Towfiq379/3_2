@@ -63,7 +63,7 @@ void ClearMultiple()
             l=k=i-1;
             for(i=i+1,sum=0; s[i]!='}'; i++)
                 sum=sum*10+s[i]-'0';
-            if(s[k]=='*'||s[k]=='?')
+            while(s[l]=='+'||s[l]=='*'||s[l]=='?')
                 l--;
             if(s[l]==']')
                 for(j=l-1; s[j]!='['; j--);
@@ -239,6 +239,8 @@ int search(int node,int sid)
     for(int ii=0; ii<adj[node].size(); ii++)
     {
         auto p=adj[node][ii];
+        if(p.S==node)
+            continue;
         if(p.F==NULL)
             ret=max(ret,search(p.S,sid));
         else if(sid<s.size()&&s[sid]==p.F)
@@ -312,4 +314,10 @@ YES, 1
 NO, 0
 NO, 0
 YES, 2
+
+INPUT 3:
+1
+a*b+c*++aa
+11
+abbcaa
 */
