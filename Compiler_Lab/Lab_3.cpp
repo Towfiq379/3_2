@@ -53,29 +53,6 @@ void ClearNegation()
     s=tmp;
 }
 
-void ClearPlus()
-{
-    tmp.clear();
-    for(i=0; i<s.size(); i++)
-    {
-        if(s[i]=='+')
-        {
-            if(s[i-1]==']')
-                for(j=i-2; s[j]!='['; j--);
-            else if(s[i-1]==')')
-                for(j=i-2; s[j]!='('; j--);
-            else
-                j=i-1;
-            for(k=j; k<i; k++)
-                tmp.pb(s[k]);
-            tmp.pb('*');
-        }
-        else
-            tmp.pb(s[i]);
-    }
-    s=tmp;
-}
-
 void ClearMultiple()
 {
     tmp.clear();
@@ -129,7 +106,7 @@ void AddAND()
     tmp.pb(s[0]);
     for(i=1; i<s.size(); i++)
     {
-        if(s[i-1]!='('&&s[i-1]!='['&&s[i-1]!='|'&&s[i]!='*'&&s[i]!='?'&&s[i]!='|'&&s[i]!=')'&&s[i]!=']')
+        if(s[i-1]!='('&&s[i-1]!='['&&s[i-1]!='|'&&s[i]!='+'&&s[i]!='*'&&s[i]!='?'&&s[i]!='|'&&s[i]!=')'&&s[i]!=']')
             tmp.pb('&');
         tmp.pb(s[i]);
     }
@@ -140,20 +117,33 @@ void SingleSymbol()
 {
     id1=++id;
     id2=++id;
+    //cout<<"> "<<id1<<' '<<id2<<endl;
     adj[id1].pb({s[i],id2});
     accept.clear();
     accept.pb(id2);
     stk.push({id1,accept});
 }
 
+void PlusOperation()
+{
+    auto pre=stk.top();
+    stk.pop();
+    //cout<<"+ "<<pre.F<<endl;
+    for(last:pre.S)
+        adj[last].pb({NULL,pre.F});
+    stk.push(pre);
+}
+
 void StarOperation()
 {
     auto pre=stk.top();
     stk.pop();
+    //cout<<"* "<<pre.F<<' ';
     start=pre.F;
     for(last:pre.S)
         adj[last].pb({NULL,start});
     pre.F=++id;
+    //cout<<pre.F<<endl;
     adj[pre.F].pb({NULL,start});
     pre.S.pb(pre.F);
     stk.push(pre);
@@ -165,6 +155,7 @@ void QuestionOperation()
     stk.pop();
     start=pre.F;
     id1=++id;
+    //cout<<"? "<<id1<<' '<<start<<endl;
     adj[id1].pb({NULL,start});
     pre.F=id1;
     pre.S.pb(id1);
@@ -177,6 +168,7 @@ void ANDOperation()
     stk.pop();
     auto pre2=stk.top();
     stk.pop();
+    //cout<<"& "<<pre1.F<<' '<<pre2.F<<endl;
     oper.pop();
     for(int last:pre2.S)
         adj[last].pb({NULL,pre1.F});
@@ -191,6 +183,7 @@ void OROperation()
     stk.pop();
     oper.pop();
     start=++id;
+    //cout<<"& "<<start<<' '<<pre1.F<<' '<<pre2.F<<endl;
     adj[start].pb({NULL,pre1.F});
     adj[start].pb({NULL,pre2.F});
     for(int last:pre2.S)
@@ -211,6 +204,8 @@ void NFA()
     {
         if((s[i]>='a'&&s[i]<='z')||(s[i]>='A'&&s[i]<='Z')||(s[i]>='0'&&s[i]<='9'))
             SingleSymbol();
+        else if(s[i]=='+')
+            PlusOperation();
         else if(s[i]=='*')
             StarOperation();
         else if(s[i]=='?')
@@ -262,7 +257,6 @@ int main()
         s="("+s+")";
         RangeExpand();
         ClearNegation();
-        ClearPlus();
         ClearMultiple();
         AddOR();
         AddAND();
@@ -294,10 +288,9 @@ a*b(cd)+e?f
 acccd
 abbbbbcccc
 bcdcdef
-
 OUTPUT 1:
 YES, 1
-N), 0
+NO, 0
 YES, 2
 */
 
@@ -313,7 +306,6 @@ acbcabbf
 pqrstdd
 dbaabggh
 dbbbbamkgh
-
 OUTPUT 2:
 YES, 3
 YES, 1
