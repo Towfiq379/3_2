@@ -321,3 +321,16 @@ a*b+c*++aa
 11
 abbcaa
 */
+/*
+INPUT 3:
+1
+(ab*c+(def)++a*d+c)+
+3
+abbcdefdefdc
+acdefdc
+abdefadc
+OUTPUT 3:
+YES, 1
+YES, 1
+NO, 0
+*/
