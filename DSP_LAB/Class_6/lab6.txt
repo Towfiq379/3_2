@@ -1,0 +1,127 @@
+1.
+
+Fs = 1000;
+n = 10;
+Wn = [100 200]/500;
+[b, a] = butter(n, Wn);
+figure(1)
+[h, t] = impz(b, a, 101);
+plot(t, h)
+title('Impulse Response')
+grid on
+figure(2)
+freqz(b, a, 512, Fs)
+title('Frequency Response')
+
+.......................................
+
+2.
+
+Fs = 2000;
+n = 10;
+Wn = [115 140]/(Fs/2);
+[b, a] = butter(n, Wn);
+[h, t] = impz(b, a, 101);
+t = 0 : 1/Fs : 0.2;
+y = 2*sin(2*pi*120*t)+2*sin(2*pi*130*t);
+yn = awgn(y, -4);
+out = filter(h, 1, yn);
+subplot(3, 1, 1)
+plot(t, y)
+title('Original Signal')
+subplot(3, 1, 2)
+plot(t, yn)
+title('Noisy Signal')
+subplot(3, 1, 3)
+plot(t, out)
+title('Filtered Signal')
+
+...................................................
+
+3.
+
+Fs = 1000;
+n = 10;
+Rp = 25;
+Wn = [100 200]/(Fs/2);
+[b, a] = cheby1(n, Rp, Wn);
+[h, t] = impz(b, a, 101);
+figure(1)
+[h, t] = impz(b, a, 101);
+plot(t, h)
+title('Impulse Response')
+grid on
+figure(2)
+freqz(b, a, 512, Fs)
+title('Frequency Response')
+
+.....................................
+
+4.
+
+Fs = 1000;
+n = 10;
+Rp = 25;
+Wn = [100 200]/(Fs/2);
+[b, a] = cheby1(n, Rp, Wn, 'stop');
+[h, t] = impz(b, a, 101);
+figure(1)
+[h, t] = impz(b, a, 101);
+plot(t, h)
+title('Impulse Response')
+grid on
+figure(2)
+freqz(b, a, 512, Fs)
+title('Frequency Response')
+
+..........................................
+
+5.
+
+Fs = 1000;
+n = 10;
+Rp = 25;
+Rs = 50;
+Wn = [100 200]/(Fs/2);
+[b, a] = ellip(n, Rp, Rs, Wn);
+[h, t] = impz(b, a, 101);
+figure(1)
+[h, t] = impz(b, a, 101);
+plot(t, h)
+title('Impulse Response')
+grid on
+figure(2)
+freqz(b, a, 512, Fs)
+title('Frequency Response')
+
+........................................
+
+6.
+
+Fs = 1000;
+n = 10;
+Rp = 5;
+Rs = 50;
+Wn = [100 200]/500;
+[b, a] = butter(n, Wn);
+[hn, t] = impz(b, a, 512);
+[H, t] = freqz(hn, 1, 512, Fs);
+mag = 20*log10(abs(H));
+
+[b1, a1] = cheby1(n, Rp, Wn);
+[hn1, t] = impz(b1, a1, 512);
+[H1, t] = freqz(hn1, 1, 512, Fs);
+mag1 = 20*log10(abs(H1));
+
+[b2, a2] = ellip(n, Rp, Rs, Wn);
+[hn2, t] = impz(b2, a2, 512);
+[H2, t] = freqz(hn2, 1, 512, Fs);
+mag2 = 20*log10(abs(H2));
+plot(t,mag,'b')
+hold on
+plot(t,mag1,'r')
+hold on
+plot(t,mag2,'y')
+hold on
+legend('Butterworth','Cheryshev','Elliptical')
+grid on
