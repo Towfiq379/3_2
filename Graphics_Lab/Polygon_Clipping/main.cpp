@@ -68,7 +68,7 @@ void polygon_Clipping()
 
 void display()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    //glClear(GL_COLOR_BUFFER_BIT);
 
     glBegin(GL_POLYGON);
     glColor3d(1, 0, 0);
@@ -105,8 +105,8 @@ int main(int argc, char *argv[])
     glutInitWindowPosition(850, 50);
     glutCreateWindow("Polygon Clipping");
     glClearColor(0, 0, 0, 1);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    //glMatrixMode(GL_PROJECTION);
+    //glLoadIdentity();
     gluOrtho2D(-1000, 1000, -1000, 1000);
 
     glutDisplayFunc(display);
