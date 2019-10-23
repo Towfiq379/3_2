@@ -70,21 +70,17 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glPushMatrix();
-        glBegin(GL_POLYGON);
-        glColor3d(1, 0, 0);
-        for(int i = 0; i < C_SZ; i++)
-            glVertex2d(Clipper[i].F, Clipper[i].S);
-        glEnd();
-    glPopMatrix();
-
-    glPushMatrix();
-        glBegin(GL_POLYGON);
-        glColor3d(0, 0, 1);
-        for(int i = 0; i < P_SZ; i++)
-            glVertex2d(polygon[i].F, polygon[i].S);
-        glEnd();
-    glPopMatrix();
+    glBegin(GL_POLYGON);
+    glColor3d(1, 0, 0);
+    for(int i = 0; i < C_SZ; i++)
+        glVertex2d(Clipper[i].F, Clipper[i].S);
+    glEnd();
+  
+    glBegin(GL_POLYGON);
+    glColor3d(0, 0, 1);
+    for(int i = 0; i < P_SZ; i++)
+        glVertex2d(polygon[i].F, polygon[i].S);
+    glEnd();
 
     glutSwapBuffers();
 }
