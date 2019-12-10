@@ -1,0 +1,45 @@
+t = 1 : 0.002 : 15;
+s = cos(2 * pi * t);
+noise = 0.2 * randn(1, length(t));
+sig = mean(noise .^ 2);
+sn = s + noise;
+M = length(t);
+mu = 0.01;
+w1(1) = 0;
+w2(1) = 0;
+
+for k = 2 : M;
+d(k) = sn(k);
+x1(k) = noise(k);
+x2(k) = noise(k - 1);
+E(k) = d(k) - [x1(k) x2(k)] * [w1(k -1); w2(k - 1)];
+W = [w1(k -1); w2(k - 1)] + 2 * mu * E(k) * [x1(k); x2(k)];
+w1(k) = W(1);
+w2(k) = W(2);
+R = [sig 0; 0 sig];
+P = [sig; 0];
+error(k) = sig + [w1(k) w2(k)] * R * [w1(k) w2(k)]' - 2 * P' * [w1(k) w2(k)]';
+end
+
+k = 1 : 1 : length(w1);
+
+subplot(2, 2, 1); plot(k, w1, 'b')
+xlabel('k'); ylabel('w1'); title('Profile of w1');
+
+subplot(2, 2, 2); plot(k, w2, 'r')
+xlabel('k'); ylabel('w2'); title('Profile of w2');
+
+subplot(2, 2, 3); plot(w1, w2, 'm')
+xlabel('w1'); ylabel('w2'); title('w1 and w2');
+
+subplot(2, 2, 4); plot(k, error, 'r')
+xlabel('k'); ylabel('error'); title('Profile of error');
+
+subplot(3, 1, 1);plot(t, s, 'r')
+title('Original Signal');
+
+subplot(3, 1, 2);plot(t, sn, 'b')
+title('Noisy Signal');
+
+subplot(3, 1, 3);plot(k, E, 'm')
+title('De-noised Signal');
