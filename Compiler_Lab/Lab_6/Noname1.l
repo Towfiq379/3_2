@@ -30,9 +30,7 @@ int main()
 	FILE *myfile;
 	myfile = fopen("C:\\Users\\asus\\Downloads\\A....Z\\Compiler_Lab\\Lab_6\\input.txt", "r");
 	if(myfile == NULL)
-	{
 		cout << "Error!" << endl;            
-	}
 	else 
 	{
 		yyin = myfile;
