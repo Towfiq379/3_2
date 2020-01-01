@@ -17,9 +17,9 @@ auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for
 
 [-]*[0-9]+ {Int_num.insert(yytext);}
 
-\&\&|\|\||\! {Logic_op.insert(yytext);}
+&&|(\|\|)|\! {Logic_op.insert(yytext);}
 
-[-+*/%]|\+\+|\-\- {Arith_op.insert(yytext);}
+[-+*/%]|(\+\+)|-- {Arith_op.insert(yytext);}
 
 >|<|==|!=|=<|=> {Rel_op.insert(yytext);}
 . {Others.insert(yytext);}
