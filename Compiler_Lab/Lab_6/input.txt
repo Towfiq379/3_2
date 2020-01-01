@@ -6,10 +6,8 @@ if ( a > b)
 {
 	c = a - b;
 	e = d - 2.0;
-	for(int f=5; f<=0; f++)
-	{
-		printf("%d",f);
-	}
+	for(int f=5, g=1; f<=0 && g<6; f--,g++)
+	 c = e + f, e = !(c + g);
 }
 else
 {
