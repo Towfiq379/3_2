@@ -38,28 +38,15 @@ void Flag()
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
-
-
-    glBegin(GL_LINE_LOOP);
-    //glColor3d(1, .0, 0);
-        for(double i = 0; i < 2 * acos(-1); i += 0.01)
-            glVertex2d(-100 + 120 * cos(i), 400 + 120 * sin(i));
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-    //glColor3d(1, .0, 0);
-        for(double i = 0; i < 2 * acos(-1); i += 0.01)
-            glVertex2d(-140 + 20 * cos(i), 440 + 20 * sin(i));
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-    //glColor3d(1, .0, 0);
-        for(double i = 0; i < 2 * acos(-1); i += 0.01)
-            glVertex2d(-60 + 20 * cos(i), 440 + 20 * sin(i));
-    glEnd();
+    //glPushMatrix();
+    //glScaled(2, .5, 0);
+    //glTranslated(400, -50, 0);
+    //glRotated(45, 0, 0, 1);
+    circle(-100, 400, 120, 0, 0.5, 1, 0);
+    circle(-140, 440, 20, 0, 0.5, 1, 0);
+    circle(-60, 440, 20, 0, 0.5, 1, 0);
 
     glBegin(GL_LINES);
-    //glColor3d(1, .0, 0);
         glVertex2d(-100, 420);
         glVertex2d(-110, 385);
 
@@ -71,13 +58,11 @@ void display()
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-    //glColor3d(1, .0, 0);
         for(double i = 2 * acos(-1); i > acos(-1); i -= 0.01)
             glVertex2d(-100 + 25 * cos(i), 365 + 25 * sin(i));
     glEnd();
 
     glBegin(GL_LINES);
-    //glColor3d(1, .0, 0);
         glVertex2d(-100, 280);
         glVertex2d(-100, -100);
 
@@ -93,10 +78,11 @@ void display()
         glVertex2d(-100, -100);
         glVertex2d(60, -220);
     glEnd();
-
     Flag();
 
-    glutSwapBuffers();
+    //glPopMatrix();
+    glFlush();
+    //glutSwapBuffers();
 }
 
 
