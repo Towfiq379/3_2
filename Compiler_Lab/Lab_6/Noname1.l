@@ -13,9 +13,9 @@ auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for
 
 [A-Za-z_][A-Za-z0-9_]* {Iden.insert(yytext);}
 
-[-]*[0-9]*[.][0-9]+ {Float_num.insert(yytext);}
+[-]?[0-9]*[.][0-9]+ {Float_num.insert(yytext);}
 
-[-]*[0-9]+ {Int_num.insert(yytext);}
+[-]?[0-9]+ {Int_num.insert(yytext);}
 
 &&|(\|\|)|\! {Logic_op.insert(yytext);}
 
